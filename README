@@ -3,7 +3,8 @@ This is a utility for building macro files for Dwarf Fortress.
 There are two scripts: df.pl and dfcomp.pl
 
 df.pl will probably do everything you need.  The thing that makes
-dfcomp different is you can define and call procedures in your macros.
+dfcomp different is you can define and call procedures in your macros,
+but it requires that Parse::RecDescent is installed.
 
 Both scripts read in their configuration (what symbols do what) from
 keys.pl.  They read in a macro from standard input and output in the
