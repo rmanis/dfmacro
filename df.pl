@@ -1,5 +1,7 @@
 #!/opt/local/bin/perl -w
 
+my %commands;
+
 open CONF, "keys.pl";
 @conf = <CONF>;
 eval join "", @conf;

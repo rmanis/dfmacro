@@ -5,6 +5,8 @@ use Parse::RecDescent;
 # $::RD_HINT = "yo";
 #$::RD_TRACE = "yo";
 
+my %commands;
+
 open CONF, "keys.pl";
 @conf = <CONF>;
 eval join "", @conf;
