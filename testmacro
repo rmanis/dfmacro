@@ -1,0 +1,15 @@
+testprog
+proc aoeu
+{
+        s8 .
+}
+proc asdf
+{
+        call aoeu
+        s4
+        call aoeu
+        call aoeu
+}
+call asdf
+call aoeu
+8 8 2 2 . d x
