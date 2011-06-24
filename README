@@ -1,0 +1,6 @@
+This is a utility for building macro files for Dwarf Fortress.
+
+To use, do something like the following:
+
+ $ ./dfcomp.pl < quarters > quarters.mak
+
