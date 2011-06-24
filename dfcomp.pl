@@ -19,11 +19,7 @@ $grammar = q(
 	{
 	    my $arref = $item[2];
 	    my @cmds = @{$arref};
-	    my $r = join("", @cmds);
-	    #print "Up in macro got @cmds\n";
-	    #print "Returning \"$r\"\n\n";
-	    #my $r = $item[2];
-	    $return = $r;
+	    $return = join("", @cmds);
 	}
 
     name: /\\w+/
@@ -38,11 +34,13 @@ $grammar = q(
 	}
 
     command: keyseq
-	     { $return = $item[1]; }
-	   | "call" funcname
-	     {
-		$return = $functions{$item[2]};
-	     }
+	{
+	    $return = $item[1];
+	}
+	|    "call" funcname
+	{
+	    $return = $functions{$item[2]};
+	}
 
     funcname: name
 	{
@@ -53,17 +51,15 @@ $grammar = q(
 	}
 
     keyseq: /[^\n\t ]+/
+	{
+	    my $tmp = main::cmd($item[1]);
+	    if( $tmp )
 	    {
-		my $tmp = main::cmd($item[1]);
-		#print "Remaining: \"$text\"\n";
-		if( $tmp )
-		{
-		    #print "We gots match for $item[1]!\n\n";
-		    $return = "\t\t"
-			. $tmp
-			. "\n\tEnd of group\n";
-		} else { $return = undef; }
+		$return = "\t\t"
+		    . $tmp
+		    . "\n\tEnd of group\n";
 	    }
+	}
 
     startrule: macro
 );
@@ -77,36 +73,18 @@ sub expansion
 sub cmd
 {
     $arg = shift;
-    #print "searching \"$arg\"\n";
-    #print "Got \"$commands{$arg}\"\n\n";
     return $commands{$arg};
 }
 
-
 @lines = <STDIN>;
-
 @lines = grep ( m/^[^#]/, @lines);
-
 chomp(@lines);
-
 $name = shift(@lines);
 
 $strang = join " ", @lines;
 
-#print "got input: \"$strang\"\n\n";
-
-# @dig = split " ", $strang;
-
 $parser = new Parse::RecDescent($grammar);
-
 $orders = $parser->macro($strang);
-
-#print "Ho boy...\n\n";
-
-# foreach $l (@lines)
-# {
-#     print "$l\n";
-# }
 
 if($orders)
 {
