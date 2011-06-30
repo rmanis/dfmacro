@@ -29,7 +29,7 @@ $grammar = q(
 	    my $cmdref = $item[4];
 	    my @cmds = @$cmdref;
 
-	    $functions{$item[2]} = join(" ", @cmds);
+	    $functions{$item[2]} = join("", @cmds);
 	    $return = $functions{$item[2]};
 	}
 
