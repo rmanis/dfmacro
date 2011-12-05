@@ -19,11 +19,6 @@ $strang = join " ", @lines;
 
 @dig = split " ", $strang;
 
-# foreach $l (@lines)
-# {
-#     print "$l\n";
-# }
-
 print "$name\n";
 
 foreach $order (@dig)
